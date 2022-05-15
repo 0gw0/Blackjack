@@ -9,6 +9,7 @@ def clear():
 cards = {'a': 11, "2": 2, "3":3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, 'J': 10, 'Q': 10, 'K': 10}
 
 def calculate_score(list):
+  """Calculates the score of current hand"""
   total = 0
   for i in list:
     total += cards[i]
@@ -23,11 +24,16 @@ def calculate_score(list):
         total -= 10
   return total
 
+def draw_card(hand):
+  """draws a card and adds to hand"""
+  hand.append(random.choice(list(cards)))
+
 # function to draw first two cards
 def starting_hand():
+  """randomly draws 2 cards"""
   hand = []
   for i in range(2):
-    hand.append(random.choice(list(cards)))
+    draw_card(hand)
   return hand
 
 def start_game():
@@ -49,7 +55,7 @@ def start_game():
     if (input('Draw another card? type y/n: ') == 'n'):
       play_on = False
     else:
-      user_hand.append(random.choice(list(cards)))
+      draw_card(user_hand)
       user_score = calculate_score(user_hand)
       print (f'\nYour cards: {user_hand}, current score: {user_score}')
       if user_score > 21:
@@ -57,7 +63,7 @@ def start_game():
         
   #if com_score < 17 it draws
   while computer_score < 17:
-    computer_hand.append(random.choice(list(cards)))
+    draw_card(computer_hand)
     computer_score = calculate_score(computer_hand)
 
   #clears, shows everyones cards and winner
