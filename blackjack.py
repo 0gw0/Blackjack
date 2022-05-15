@@ -2,11 +2,12 @@ from art import logo
 import random
 import os
 
-def clear():
-    os.system('cls' if os.name=='nt' else 'clear')
-
 # cards and their value
 cards = {'a': 11, "2": 2, "3":3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, 'J': 10, 'Q': 10, 'K': 10}
+
+def clear():
+  """clears screen"""
+  os.system('cls' if os.name=='nt' else 'clear')
 
 def calculate_score(list):
   """Calculates the score of current hand"""
@@ -25,7 +26,7 @@ def calculate_score(list):
   return total
 
 def draw_card(hand):
-  """draws a card and adds to hand"""
+  """draws a card and adds to hand list"""
   hand.append(random.choice(list(cards)))
 
 # function to draw first two cards
@@ -41,15 +42,15 @@ def start_game():
   print(logo)
   #hands and scores
   computer_hand = starting_hand()
+  computer_score = calculate_score(computer_hand)
   user_hand = starting_hand()
   user_score = calculate_score(user_hand)
-  computer_score = calculate_score(computer_hand)
 
-  # shows coms first card and ur current score
+  # shows computers first card and users cards & current score
   print (f'Your cards: {user_hand}, current score: {user_score}')
   print (f"Computer's first card: {computer_hand[0]}")
 
-  #while loop that exists when 'n' or when BAO
+  #while loop that exits when 'n' or when BAO
   play_on = True
   while (play_on):
     if (input('Draw another card? type y/n: ') == 'n'):
