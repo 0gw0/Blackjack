@@ -29,13 +29,26 @@ def draw_card(hand):
   """draws a card and adds to hand list"""
   hand.append(random.choice(list(cards)))
 
-# function to draw first two cards
 def starting_hand():
   """randomly draws 2 cards"""
   hand = []
   for i in range(2):
     draw_card(hand)
   return hand
+
+def display_winner(dealer, player):
+  # determining who is the winner
+  if player > 21:
+    print("You went over 21, You lose")
+  # user loses even if computer BAOs due to house rules
+  elif dealer > 21:
+    print("The dealer went over 21, You win!!")
+  elif (player > dealer):
+    print("You win")
+  elif (player == dealer):
+    print("Its a draw")
+  else:
+    print("You lose")
 
 def start_game():
   clear()
@@ -66,24 +79,13 @@ def start_game():
   while computer_score < 17:
     draw_card(computer_hand)
     computer_score = calculate_score(computer_hand)
-
+  
   #clears, shows everyones cards and winner
   clear ()
   print (logo)
   print (f'Your cards: {user_hand}, final score: {user_score}')
   print (f"Computer's final hand: {computer_hand}, score: {computer_score}")
-  # determining who is the winner
-  if user_score > 21:
-    print("You went over 21, You lose")
-  # user loses even if computer BAOs due to house rules
-  elif computer_score > 21:
-    print("The dealer went over 21, You win!!")
-  elif (user_score > computer_score):
-    print("You win")
-  elif (user_score == computer_score):
-    print("Its a draw")
-  else:
-    print("You lose")
+  display_winner(computer_score, user_score)
 
   if(input("Play another game? type y/n: ").lower() == 'y'):
     start_game()
