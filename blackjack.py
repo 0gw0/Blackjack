@@ -5,6 +5,9 @@ import os
 # cards and their value
 cards = {'a': 11, "2": 2, "3":3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, 'J': 10, 'Q': 10, 'K': 10}
 
+# Character 9829 is '♥', 9830 is '♦', 9824 is '♠', 9827 is '♣'.
+suits = [chr(9829), chr(9830), chr(9824), chr(9827)]
+
 def clear():
   """clears screen"""
   os.system('cls' if os.name=='nt' else 'clear')
@@ -63,8 +66,11 @@ def start_game():
   print (f'Your cards: {user_hand}, current score: {user_score}')
   print (f"Computer's first card: {computer_hand[0]}")
 
-  #while loop that exits when 'n' or when BAO
+  # if opening hand is 21 cut to 'u win'
   play_on = True
+  if user_score == 21:
+    play_on = False
+  #while loop that exits when 'n' or when BAO
   while (play_on):
     if (input('Draw another card? type y/n: ') == 'n'):
       play_on = False
